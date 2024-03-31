@@ -1,0 +1,39 @@
+#!/bin/bash
+
+# Function to display the list of strings in reverse order in a single line
+reverse_display() {
+    # Store the arguments (list of strings) in an array
+    local strings=("$@")
+
+    # Get the length of the array
+    local length=${#strings[@]}
+    
+    # Initialize an empty string to store the reversed paragraph
+    local reversed=""
+    
+    # Loop through the array in reverse order and concatenate each element with a space
+    for (( i = length - 1; i >= 0; i-- )); do
+        reversed="$reversed${strings[i]} "  # Concatenate each element with a space
+    done
+    
+    # Print the reversed paragraph without trailing space
+    echo "${reversed::-1}"
+}
+
+# Main function to read the paragraph from a file and call the reverse_display function
+main() {
+    local file_path="$1"  # Get the file path from the first argument
+    if [[ -f "$file_path" ]]; then  # Check if the file exists
+        echo "Original paragraph:"
+        cat "$file_path"  # Display the original paragraph
+        
+        echo "Displayed sentence:"
+        # Read the paragraph from the file, pass it to the reverse_display function, and print it in a single line
+        reverse_display $(<"$file_path")
+    else
+        echo "Error: File not found!"
+    fi
+}
+
+# Call the main function with the file path provided as argument
+main "$1"
