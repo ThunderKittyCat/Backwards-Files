@@ -1,5 +1,4 @@
 # Backwards-Files
-# CyberGuardian-DecoyMaster
 
 ## Overview
 Designed to revert strings, for example:
